@@ -73,7 +73,7 @@ export default function Integration() {
   const [active, setActive] = useState<keyof typeof codeSamples>("python");
 
   return (
-    <section className="w-full bg-black text-white py-28 px-6 lg:px-20 relative overflow-hidden">
+    <section className="w-full bg-black text-white py-16 md:py-28 px-4 sm:px-6 lg:px-20 relative overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div
@@ -85,16 +85,16 @@ export default function Integration() {
         ></div>
       </div>
 
-      <div className="flex flex-col lg:flex-row items-center gap-14 max-w-7xl mx-auto relative z-10">
+      <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-14 max-w-7xl mx-auto relative z-10">
         {/* MOBILE: Heading and tag on top */}
-        <div className="w-full lg:hidden mb-8">
-          <div className="mb-6 text-center">
-            <span className="inline-block px-4 py-1.5 bg-linear-to-r from-white/10 to-white/5 border border-white/10 rounded-full text-sm font-medium">
+        <div className="w-full lg:hidden mb-6">
+          <div className="mb-4 text-center">
+            <span className="inline-block px-3 py-1.5 bg-linear-to-r from-white/10 to-white/5 border border-white/10 rounded-full text-xs sm:text-sm font-medium">
               Developer Experience
             </span>
           </div>
           
-          <h2 className="text-3xl sm:text-4xl font-semibold leading-tight text-center">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl font-semibold leading-tight text-center px-2">
             Integrate{" "}
             <span className="bg-linear-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
               AADHNIK
@@ -104,18 +104,18 @@ export default function Integration() {
           </h2>
         </div>
 
-        {/* LEFT = ENHANCED CODE BOX - SAME AS BEFORE */}
-        <div className="w-full lg:w-[50%]">
-          <div className="bg-linear-to-br from-gray-900 to-black rounded-3xl border border-gray-800 overflow-hidden shadow-[0_0_60px_rgba(255,255,255,0.05)] hover:shadow-[0_0_80px_rgba(255,255,255,0.08)] transition-shadow duration-500">
+        {/* LEFT = ENHANCED CODE BOX - MOBILE FIXED */}
+        <div className="w-full lg:w-[50%] px-2 sm:px-0">
+          <div className="bg-linear-to-br from-gray-900 to-black rounded-2xl lg:rounded-3xl border border-gray-800 overflow-hidden shadow-[0_0_30px_rgba(255,255,255,0.05)] lg:shadow-[0_0_60px_rgba(255,255,255,0.05)] hover:shadow-[0_0_80px_rgba(255,255,255,0.08)] transition-shadow duration-500">
             {/* Header with file info */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-800">
+            <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-800">
               <div className="flex items-center gap-2">
                 <div className="flex gap-1">
-                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-500"></div>
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-yellow-500"></div>
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-500"></div>
                 </div>
-                <span className="ml-4 text-sm font-mono text-gray-400">
+                <span className="ml-3 sm:ml-4 text-xs sm:text-sm font-mono text-gray-400">
                   deploy.
                   {active === "python"
                     ? "py"
@@ -128,18 +128,18 @@ export default function Integration() {
               </div>
 
               {/* Copy button */}
-              <button className="text-xs text-gray-400 hover:text-white px-3 py-1 border border-gray-700 rounded-lg hover:border-gray-600 transition-colors">
+              <button className="text-xs text-gray-400 hover:text-white px-2 py-1 sm:px-3 sm:py-1 border border-gray-700 rounded-lg hover:border-gray-600 transition-colors text-xs sm:text-xs">
                 Copy
               </button>
             </div>
 
-            {/* TABS - Enhanced */}
-            <div className="flex items-center px-6 pt-4 gap-2 border-b border-gray-800">
+            {/* TABS - FIXED FOR MOBILE */}
+            <div className="flex items-center px-3 sm:px-6 pt-3 sm:pt-4 gap-1 sm:gap-2 border-b border-gray-800 overflow-x-auto scrollbar-hide">
               {Object.keys(codeSamples).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActive(tab as any)}
-                  className={`relative px-5 py-3 font-mono text-sm font-medium transition-all duration-300 ${
+                  className={`relative px-3 sm:px-5 py-2 sm:py-3 font-mono text-xs sm:text-sm font-medium transition-all duration-300 whitespace-nowrap ${
                     active === tab
                       ? "text-white"
                       : "text-gray-500 hover:text-gray-300"
@@ -156,19 +156,26 @@ export default function Integration() {
                       }}
                     />
                   )}
-                  <span className="relative z-10 flex items-center gap-2">
+                  <span className="relative z-10 flex items-center gap-1 sm:gap-2">
                     {tab === "python" && "🐍"}
                     {tab === "react" && "⚛️"}
                     {tab === "angular" && "🔺"}
                     {tab === "laravel" && "🌙"}
-                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                    <span className="hidden xs:inline">
+                      {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                    </span>
+                    <span className="xs:hidden">
+                      {tab === "python" ? "Py" : 
+                       tab === "react" ? "React" : 
+                       tab === "angular" ? "Angular" : "Laravel"}
+                    </span>
                   </span>
                 </button>
               ))}
             </div>
 
-            {/* CODE - Enhanced */}
-            <div className="relative p-6 font-mono leading-relaxed min-h-[280px] bg-linear-to-b from-gray-900/50 to-black/50">
+            {/* CODE - Enhanced for mobile */}
+            <div className="relative p-4 sm:p-6 font-mono leading-relaxed min-h-[200px] sm:min-h-[280px] bg-linear-to-b from-gray-900/50 to-black/50">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={active}
@@ -178,14 +185,14 @@ export default function Integration() {
                   transition={{ duration: 0.3 }}
                   className="relative"
                 >
-                  <div className="absolute left-0 top-0 bottom-0 w-8 text-right pr-2 text-gray-600 select-none">
+                  <div className="absolute left-0 top-0 bottom-0 w-6 sm:w-8 text-right pr-1 sm:pr-2 text-gray-600 select-none text-xs sm:text-xs">
                     {codeSamples[active].split("\n").map((_, i) => (
-                      <div key={i} className="text-xs">
+                      <div key={i} className="leading-5 sm:leading-6">
                         {i + 1}
                       </div>
                     ))}
                   </div>
-                  <pre className="pl-10 text-[#e0e0e0] text-sm overflow-x-auto whitespace-pre">
+                  <pre className="pl-8 sm:pl-10 text-[#e0e0e0] text-xs sm:text-sm overflow-x-auto whitespace-pre scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
                     <code className="language-javascript">
                       {codeSamples[active]}
                     </code>
@@ -193,18 +200,18 @@ export default function Integration() {
                 </motion.div>
               </AnimatePresence>
 
-              {/* Syntax highlighting indicators */}
-              <div className="absolute bottom-4 right-4 flex items-center gap-3 text-xs text-gray-500">
-                <span className="px-2 py-1 bg-gray-800 rounded">async</span>
-                <span className="px-2 py-1 bg-gray-800 rounded">await</span>
-                <span className="px-2 py-1 bg-gray-800 rounded">API</span>
+              {/* Syntax highlighting indicators - hide on very small screens */}
+              <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 flex items-center gap-2 sm:gap-3 text-xs text-gray-500">
+                <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-gray-800 rounded text-[10px] sm:text-xs">async</span>
+                <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-gray-800 rounded text-[10px] sm:text-xs">await</span>
+                <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-gray-800 rounded text-[10px] sm:text-xs hidden xs:inline">API</span>
               </div>
             </div>
 
             {/* Footer */}
-            <div className="px-6 py-4 border-t border-gray-800 bg-black/50 flex items-center justify-between">
-              <div className="flex items-center gap-2 text-sm text-gray-400">
-                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+            <div className="px-4 sm:px-6 py-3 sm:py-4 border-t border-gray-800 bg-black/50 flex items-center justify-between">
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400">
+                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500 animate-pulse"></div>
                 <span>Ready to deploy</span>
               </div>
               <div className="text-xs text-gray-500 font-mono">
@@ -214,7 +221,7 @@ export default function Integration() {
           </div>
         </div>
 
-        {/* RIGHT = CONTENT - DESKTOP ONLY (unchanged) */}
+        {/* RIGHT = CONTENT - DESKTOP ONLY */}
         <div className="hidden lg:block lg:w-[50%] text-center lg:text-left">
           <div className="mb-6">
             <span className="inline-block px-4 py-1.5 bg-linear-to-r from-white/10 to-white/5 border border-white/10 rounded-full text-sm font-medium mb-4">
@@ -294,8 +301,8 @@ export default function Integration() {
         </div>
 
         {/* MOBILE: Paragraph below code box */}
-        <div className="w-full lg:hidden mt-8">
-          <p className="text-gray-300 text-lg text-center leading-relaxed max-w-2xl mx-auto">
+        <div className="w-full lg:hidden mt-6">
+          <p className="text-gray-300 text-base sm:text-lg text-center leading-relaxed max-w-2xl mx-auto px-3 sm:px-4">
             Clean APIs, zero lock-in, and first-class TypeScript support.
             AADHNIK works seamlessly across frontend frameworks, backend
             platforms, and cloud infrastructure.
@@ -303,10 +310,10 @@ export default function Integration() {
         </div>
 
         {/* MOBILE: Tech icons marquee below paragraph */}
-        <div className="w-full lg:hidden mt-10">
+        <div className="w-full lg:hidden mt-8">
           <div className="relative overflow-hidden select-none">
-            <div className="absolute left-0 top-0 bottom-0 w-20 bg-linear-to-r from-black to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-20 bg-linear-to-l from-black to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-20 bg-linear-to-r from-black to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-20 bg-linear-to-l from-black to-transparent z-10 pointer-events-none"></div>
 
             <motion.div
               animate={{ x: ["0%", "-50%"] }}
@@ -315,14 +322,14 @@ export default function Integration() {
                 ease: "linear",
                 repeat: Infinity,
               }}
-              className="flex gap-12 whitespace-nowrap py-4"
+              className="flex gap-8 sm:gap-12 whitespace-nowrap py-4"
             >
               {[...techIcons, ...techIcons].map((icon, i) => (
                 <img
                   key={i}
                   src={icon.src}
                   alt={icon.label}
-                  className="h-12 w-12 object-contain opacity-70"
+                  className="h-10 w-10 sm:h-12 sm:w-12 object-contain opacity-70"
                 />
               ))}
             </motion.div>

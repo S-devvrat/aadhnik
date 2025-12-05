@@ -34,3 +34,40 @@ html {
     }
   }
 }
+@keyframes spinIn {
+  from {
+    opacity: 0;
+    transform: rotate(-90deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-spinIn {
+  animation: spinIn 0.3s ease-out;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.5s ease-out;
+}
+/* 📱 MOBILE ONLY FIX (max-width 768px) */
+@media (max-width: 768px) {
+  .laser-wrapper {
+    height: 80vh !important;     /* reduce height so beam can move down naturally */
+  }
+}
+
+
