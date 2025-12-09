@@ -101,7 +101,7 @@ export const Card: React.FC<CardProps> = ({
       }}
       className="max-w-5xl -mt-12 mx-auto w-full border-4 border-[#6C6C6C] p-2 md:p-6 bg-[#222222] rounded-[30px] shadow-2xl"
     >
-      <div className="w-full overflow-y-auto max-h-[80vh] rounded-2xl bg-gray-100 dark:bg-zinc-900 md:rounded-2xl md:p-4">
+      <div className="w-full overflow-y-auto max-h-[80vh] rounded-2xl bg-black dark:bg-zinc-900 md:rounded-2xl md:p-4">
         {children}
       </div>
     </motion.div>

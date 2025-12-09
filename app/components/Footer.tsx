@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { 
   FaTwitter, 
@@ -18,16 +18,51 @@ import {
 } from "react-icons/fi";
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  // HANDLE SUBSCRIBE
+  const handleSubscribe = async () => {
+    if (!email.trim()) {
+      setMessage("Please enter a valid email.");
+      return;
+    }
+
+    setLoading(true);
+    setMessage("");
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+      setMessage(data.message);
+
+      if (data.success) {
+        setEmail("");
+      }
+    } catch (err) {
+      setMessage("Something went wrong. Try again later.");
+    }
+
+    setLoading(false);
+  };
+
   return (
     <footer className="w-full bg-black text-white border-t border-gray-900">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-6 py-12 md:py-16 lg:py-20">
-        {/* Top Section with Logo and CTA */}
+        
+        {/* Top Section */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 mb-12 pb-12 border-b border-gray-900">
+          
           {/* Logo Section */}
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-4">
-              {/* Your Logo */}
               <div className="relative">
                 <div className="absolute -inset-2 bg-purple-500/20 rounded-full blur-md"></div>
                 <img 
@@ -52,210 +87,170 @@ export default function Footer() {
           {/* Newsletter Signup */}
           <div className="flex-1 max-w-md">
             <h3 className="text-lg font-semibold mb-4">Stay ahead with insights</h3>
+            
             <div className="flex flex-col sm:flex-row gap-2">
-              <input 
-                type="email" 
+              <input
+                type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-4 py-3 bg-gray-900/50 border border-gray-800 rounded-lg focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 text-white placeholder-gray-500"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex-1 px-4 py-3 bg-gray-900/50 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
               />
-              <button className="px-6 py-3 bg-linear-to-r from-purple-600 to-purple-700 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap">
-                Subscribe
+
+              <button
+                onClick={handleSubscribe}
+                disabled={loading}
+                className="px-6 py-3 bg-linear-to-r from-purple-600 to-purple-700 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {loading ? "Sending..." : "Subscribe"}
                 <FiArrowRight className="w-4 h-4" />
               </button>
             </div>
-            <p className="text-gray-500 text-xs mt-2">
-              No spam. Unsubscribe anytime.
+
+            <p className={`text-xs mt-2 ${
+              message.includes("successful") ? "text-green-400" : "text-gray-400"
+            }`}>
+              {message}
             </p>
           </div>
+
         </div>
 
-        {/* Links Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12">
-          {/* Product Links */}
+        {/* Footer Links */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-14 mb-12">
+
+          {/* Product */}
           <div>
             <h4 className="text-white font-semibold mb-4 text-lg">Product</h4>
             <ul className="space-y-3">
               {[
-                { name: "AI Solutions", href: "#" },
-                { name: "Web Development", href: "#" },
-                { name: "Mobile Apps", href: "#" },
-                { name: "APIs & Integrations", href: "#" },
-                { name: "Analytics", href: "#" },
-                { name: "Enterprise", href: "#" },
+                "AI Solutions",
+                "Web Development",
+                "Mobile Apps",
+                "APIs & Integrations",
+                "Analytics",
+                "Enterprise"
               ].map((item) => (
-                <li key={item.name}>
-                  <Link 
-                    href={item.href} 
-                    className="text-gray-400 hover:text-white transition-colors duration-300"
-                  >
-                    {item.name}
+                <li key={item}>
+                  <Link href="/services" className="text-gray-400 hover:text-white transition">
+                    {item}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Services Links */}
+          {/* Services */}
           <div>
             <h4 className="text-white font-semibold mb-4 text-lg">Services</h4>
             <ul className="space-y-3">
               {[
-                { name: "Consulting", href: "#" },
-                { name: "UI/UX Design", href: "#" },
-                { name: "Development", href: "#" },
-                { name: "DevOps", href: "#" },
-                { name: "Maintenance", href: "#" },
-                { name: "Support", href: "#" },
+                "Consulting",
+                "UI/UX Design",
+                "Development",
+                "DevOps",
+                "Maintenance",
+                "Support"
               ].map((item) => (
-                <li key={item.name}>
-                  <Link 
-                    href={item.href} 
-                    className="text-gray-400 hover:text-white transition-colors duration-300"
-                  >
-                    {item.name}
+                <li key={item}>
+                  <Link href="/about" className="text-gray-400 hover:text-white transition">
+                    {item}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Company Links */}
+          {/* Company */}
           <div>
             <h4 className="text-white font-semibold mb-4 text-lg">Company</h4>
             <ul className="space-y-3">
               {[
-                { name: "About", href: "#" },
-                { name: "Careers", href: "#" },
-                { name: "Blog", href: "#" },
-                { name: "Press", href: "#" },
-                { name: "Partners", href: "#" },
-                { name: "Contact", href: "#" },
+                "About",
+                "Careers",
+                "Blog",
+                "Press",
+                "Partners",
+                "Contact"
               ].map((item) => (
-                <li key={item.name}>
-                  <Link 
-                    href={item.href} 
-                    className="text-gray-400 hover:text-white transition-colors duration-300"
-                  >
-                    {item.name}
+                <li key={item}>
+                  <Link href="#" className="text-gray-400 hover:text-white transition">
+                    {item}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Contact */}
           <div>
             <h4 className="text-white font-semibold mb-4 text-lg">Contact</h4>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <FiMail className="w-5 h-5 text-purple-400 mt-0.5" />
+                <FiMail className="w-5 h-5 text-purple-400 mt-1" />
                 <div>
                   <p className="text-white">Email</p>
-                  <a 
-                    href="mailto:hello@aadhnik.com" 
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    hello@aadhnik.com
+                  <a href="mailto:support@aadhniktech.com" className="text-gray-400 hover:text-white transition">
+                    support@aadhniktech.com
                   </a>
                 </div>
               </div>
+
               <div className="flex items-start gap-3">
-                <FiPhone className="w-5 h-5 text-purple-400 mt-0.5" />
+                <FiPhone className="w-5 h-5 text-purple-400 mt-1" />
                 <div>
                   <p className="text-white">Phone</p>
-                  <a 
-                    href="tel:+11234567890" 
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
+                  <a href="tel:+11234567890" className="text-gray-400 hover:text-white transition">
                     +1 (123) 456-7890
                   </a>
                 </div>
               </div>
+
               <div className="flex items-start gap-3">
-                <FiMapPin className="w-5 h-5 text-purple-400 mt-0.5" />
+                <FiMapPin className="w-5 h-5 text-purple-400 mt-1" />
                 <div>
                   <p className="text-white">Location</p>
                   <p className="text-gray-400">San Francisco, CA</p>
                 </div>
               </div>
+
             </div>
           </div>
+
         </div>
 
-        {/* Bottom Bar */}
+        {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-8 border-t border-gray-900">
-          {/* Copyright */}
+
           <div className="text-gray-500 text-sm">
             © {new Date().getFullYear()} AADHNIK. All rights reserved.
           </div>
 
-          {/* Social Links */}
           <div className="flex items-center gap-4">
-            <a 
-              href="#" 
-              className="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-800 transition-all duration-300"
-              aria-label="Twitter"
-            >
-              <FaTwitter className="w-5 h-5" />
-            </a>
-            <a 
-              href="#" 
-              className="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-800 transition-all duration-300"
-              aria-label="LinkedIn"
-            >
-              <FaLinkedin className="w-5 h-5" />
-            </a>
-            <a 
-              href="#" 
-              className="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-800 transition-all duration-300"
-              aria-label="GitHub"
-            >
-              <FaGithub className="w-5 h-5" />
-            </a>
-            <a 
-              href="#" 
-              className="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-800 transition-all duration-300"
-              aria-label="Discord"
-            >
-              <FaDiscord className="w-5 h-5" />
-            </a>
-            <a 
-              href="#" 
-              className="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-800 transition-all duration-300"
-              aria-label="YouTube"
-            >
-              <FaYoutube className="w-5 h-5" />
-            </a>
+            {[FaTwitter, FaLinkedin, FaGithub, FaDiscord, FaYoutube].map((Icon, i) => (
+              <a
+                key={i}
+                href="#"
+                className="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-800 transition"
+              >
+                <Icon className="w-5 h-5" />
+              </a>
+            ))}
           </div>
 
-          {/* Legal Links */}
           <div className="flex items-center gap-6 text-sm">
-            <Link 
-              href="#" 
-              className="text-gray-500 hover:text-white transition-colors"
-            >
-              Privacy Policy
-            </Link>
-            <Link 
-              href="#" 
-              className="text-gray-500 hover:text-white transition-colors"
-            >
-              Terms of Service
-            </Link>
-            <Link 
-              href="#" 
-              className="text-gray-500 hover:text-white transition-colors"
-            >
-              Cookies
-            </Link>
+            <Link href="#" className="text-gray-500 hover:text-white">Privacy Policy</Link>
+            <Link href="#" className="text-gray-500 hover:text-white">Terms of Service</Link>
+            <Link href="#" className="text-gray-500 hover:text-white">Cookies</Link>
           </div>
+
         </div>
       </div>
 
-      {/* Decorative Elements */}
       <div className="relative h-1">
         <div className="absolute inset-0 bg-linear-to-r from-transparent via-purple-500 to-transparent opacity-20"></div>
       </div>
+
     </footer>
   );
 }

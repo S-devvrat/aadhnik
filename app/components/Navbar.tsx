@@ -40,7 +40,6 @@ const Navbar = () => {
             <NavItem label="Home" href="/" pathname={pathname} />
             <NavItem label="About" href="/about" pathname={pathname} />
             <NavItem label="Services" href="/services" pathname={pathname} />
-            <NavItem label="Blogs" href="/blogs" pathname={pathname} />
             <NavItem label="Contact" href="/contact" pathname={pathname} />
           </ul>
 
@@ -75,7 +74,6 @@ const Navbar = () => {
             <MobileNavItem label="Home" href="/" onClick={closeMenu} />
             <MobileNavItem label="About" href="/about" onClick={closeMenu} />
             <MobileNavItem label="Services" href="/services" onClick={closeMenu} />
-            <MobileNavItem label="Blogs" href="/blogs" onClick={closeMenu} />
             <MobileNavItem label="Contact" href="/contact" onClick={closeMenu} />
 
             {/* CTA */}
