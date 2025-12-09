@@ -473,13 +473,15 @@ const Solutions = () => {
                     ))}
                   </div>
 
+                  <a href="/services">
                   <button className="group relative px-8 md:px-10 py-3 md:py-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-pink-500/20 transition-all duration-500 overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
                     <span className="relative flex items-center justify-center gap-3 text-base md:text-lg">
-                      Explore AI Solutions
+                      Explore Services
                       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                   </button>
+                  </a>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 md:gap-4">
