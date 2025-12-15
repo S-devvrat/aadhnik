@@ -9,8 +9,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className="bg-[#0b0b0f]">
+        <body className="bg-[#0b0b0f]">
         <Navbar></Navbar>
         {children}
         <Footer></Footer>
