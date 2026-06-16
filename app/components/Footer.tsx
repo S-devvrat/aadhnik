@@ -1,256 +1,171 @@
 "use client";
 
-import React, { useState } from "react";
 import Link from "next/link";
-import { 
-  FaTwitter, 
-  FaLinkedin, 
-  FaGithub, 
-  FaDiscord,
-  FaYoutube,
-  FaInstagram 
-} from "react-icons/fa";
-import { 
-  FiMail, 
-  FiPhone, 
-  FiMapPin,
-  FiArrowRight
-} from "react-icons/fi";
+import Image from "next/image";
+import { Mail, Phone, Send, Facebook, Linkedin, Github, ArrowUpRight } from "lucide-react";
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-
-  // HANDLE SUBSCRIBE
-  const handleSubscribe = async () => {
-    if (!email.trim()) {
-      setMessage("Please enter a valid email.");
-      return;
-    }
-
-    setLoading(true);
-    setMessage("");
-
-    try {
-      const res = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await res.json();
-      setMessage(data.message);
-
-      if (data.success) {
-        setEmail("");
-      }
-    } catch (err) {
-      setMessage("Something went wrong. Try again later.");
-    }
-
-    setLoading(false);
-  };
-
   return (
-    <footer className="w-full bg-black text-white border-t border-gray-900">
-      {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-6 py-12 md:py-16 lg:py-20">
+    <footer className="relative overflow-hidden bg-[#050508] px-4 sm:px-6 py-16 sm:py-24 -mb-20">
+      {/* Ambient background glows */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/4 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-black blur-[120px]" />
+        <div className="absolute right-1/4 bottom-0 h-[400px] w-[400px] translate-x-1/2 rounded-full bg-black blur-[100px]" />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl">
         
-        {/* Top Section */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 mb-12 pb-12 border-b border-gray-900">
-          
-          {/* Logo Section */}
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="relative">
-                <div className="absolute -inset-2 bg-purple-500/20 rounded-full blur-md"></div>
-                <img 
-                  src="/aadhniklogo.png" 
-                  alt="AADHNIK Logo" 
-                  className="relative w-12 h-12 md:w-14 md:h-14"
+
+        {/* Main Footer Grid */}
+        <div className="overflow-hidden rounded-[28px] border border-white/[0.07] bg-gradient-to-br from-white/[0.04] to-white/[0.01] p-8 sm:p-10 md:p-14 backdrop-blur-xl">
+          <div className="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_1fr] lg:gap-8">
+
+            {/* LEFT — Brand + Newsletter */}
+            <div className="flex flex-col">
+              {/* Logo */}
+<div className="mb-10 flex items-center gap-4">
+  <Image
+    src="/aadhnikwhite.png"
+    alt="Aadhnik"
+    width={180}
+    height={180}
+    className="object-contain"
+  />
+</div>
+
+              <p className="mb-3 text-sm text-white/50 leading-relaxed max-w-xs">
+                Helping ambitious brands grow faster with smart digital strategy, automation, and modern software.
+              </p>
+
+              {/* Divider */}
+              <div className="my-6 h-px w-16 bg-white/10" />
+
+              <p className="mb-3 text-sm font-medium text-white/70">
+                Stay in the loop
+              </p>
+
+              {/* Newsletter */}
+              <div className="flex max-w-[420px] items-center overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.04] ring-1 ring-inset ring-white/[0.04] transition-all focus-within:border-blue-500/40 focus-within:ring-blue-500/20">
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  className="flex-1 bg-transparent px-5 py-3.5 text-sm text-white outline-none placeholder:text-white/25"
                 />
+                <button
+                  aria-label="Subscribe"
+                  className="mr-1.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-600 transition hover:bg-blue-500 active:scale-95"
+                >
+                  <Send size={14} className="text-white" />
+                </button>
               </div>
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold bg-linear-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                  AADHNIK
-                </h2>
-                <p className="text-gray-400 text-sm">Building the future, today</p>
+
+              {/* Contact chips */}
+              <div className="mt-8 flex flex-wrap gap-2">
+                <a
+                  href="mailto:hello@aadhnik.com"
+                  className="flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-sm text-white/50 transition hover:border-white/20 hover:text-white/80"
+                >
+                  <Mail size={13} />
+                  hello@aadhnik.com
+                </a>
+                <a
+                  href="tel:+919876543210"
+                  className="flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-sm text-white/50 transition hover:border-white/20 hover:text-white/80"
+                >
+                  <Phone size={13} />
+                  +91 98765 43210
+                </a>
               </div>
             </div>
-            <p className="text-gray-400 max-w-md mt-4">
-              We create intelligent digital systems that empower businesses 
-              and delight users through innovation and technical excellence.
+
+            {/* EXPLORE */}
+            <div>
+              <p className="mb-6 text-xs font-semibold tracking-[0.18em] text-white/30 uppercase">
+                Explore
+              </p>
+              <nav className="flex flex-col gap-1">
+                {[
+                  { label: "Home", href: "/" },
+                  { label: "About", href: "/about" },
+                  { label: "Services", href: "/services" },
+                  { label: "Portfolio", href: "/work" },
+                  { label: "Contact", href: "/contact" },
+                ].map(({ label, href }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="group flex w-fit items-center gap-1.5 py-1.5 text-[15px] text-white/50 transition-colors hover:text-white"
+                  >
+                    <span className="h-px w-0 bg-blue-500 transition-all group-hover:w-4" />
+                    {label}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+
+            {/* SERVICES */}
+            <div>
+              <p className="mb-6 text-xs font-semibold tracking-[0.18em] text-white/30 uppercase">
+                Services
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Web Development",
+                  "SEO Optimization",
+                  "Performance Marketing",
+                  "CRM Integration",
+                  "Business Automation",
+                  "Brand Strategy",
+                  "AI Solutions",
+                  "Custom Software",
+                ].map((service) => (
+                  <span
+                    key={service}
+                    className="rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-1.5 text-xs text-white/45 transition hover:border-white/15 hover:text-white/70 cursor-default"
+                  >
+                    {service}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="my-10 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+          {/* Bottom bar */}
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-xs text-white/25">
+              © 2025 Aadhnik. All rights reserved.
             </p>
-          </div>
 
-          {/* Newsletter Signup */}
-          <div className="flex-1 max-w-md">
-            <h3 className="text-lg font-semibold mb-4">Stay ahead with insights</h3>
-            
-            <div className="flex flex-col sm:flex-row gap-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 px-4 py-3 bg-gray-900/50 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
-              />
-
-              <button
-                onClick={handleSubscribe}
-                disabled={loading}
-                className="px-6 py-3 bg-linear-to-r from-purple-600 to-purple-700 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50"
-              >
-                {loading ? "Sending..." : "Subscribe"}
-                <FiArrowRight className="w-4 h-4" />
-              </button>
+            {/* Social links */}
+            <div className="flex flex-wrap gap-2">
+              {[
+                { icon: Facebook, label: "Facebook", href: "#" },
+                { icon: Linkedin, label: "LinkedIn", href: "#" },
+                { icon: Github, label: "GitHub", href: "#" },
+              ].map(({ icon: Icon, label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="group flex h-9 items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.03] px-4 text-xs text-white/40 transition hover:border-white/15 hover:text-white/75"
+                >
+                  <Icon size={13} className="transition group-hover:text-blue-400" />
+                  {label}
+                </a>
+              ))}
             </div>
 
-            <p className={`text-xs mt-2 ${
-              message.includes("successful") ? "text-green-400" : "text-gray-400"
-            }`}>
-              {message}
-            </p>
-          </div>
-
-        </div>
-
-        {/* Footer Links */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-14 mb-12">
-
-          {/* Product */}
-          <div>
-            <h4 className="text-white font-semibold mb-4 text-lg">Product</h4>
-            <ul className="space-y-3">
-              {[
-                "AI Solutions",
-                "Web Development",
-                "Mobile Apps",
-                "APIs & Integrations",
-                "Analytics",
-                "Enterprise"
-              ].map((item) => (
-                <li key={item}>
-                  <Link href="/services" className="text-gray-400 hover:text-white transition">
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h4 className="text-white font-semibold mb-4 text-lg">Services</h4>
-            <ul className="space-y-3">
-              {[
-                "Consulting",
-                "UI/UX Design",
-                "Development",
-                "DevOps",
-                "Maintenance",
-                "Support"
-              ].map((item) => (
-                <li key={item}>
-                  <Link href="/about" className="text-gray-400 hover:text-white transition">
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h4 className="text-white font-semibold mb-4 text-lg">Company</h4>
-            <ul className="space-y-3">
-              {[
-                "About",
-                "Careers",
-                "Blog",
-                "Press",
-                "Partners",
-                "Contact"
-              ].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-gray-400 hover:text-white transition">
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h4 className="text-white font-semibold mb-4 text-lg">Contact</h4>
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <FiMail className="w-5 h-5 text-purple-400 mt-1" />
-                <div>
-                  <p className="text-white">Email</p>
-                  <a href="mailto:support@aadhniktech.com" className="text-gray-400 hover:text-white transition">
-                    support@aadhniktech.com
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <FiPhone className="w-5 h-5 text-purple-400 mt-1" />
-                <div>
-                  <p className="text-white">Phone</p>
-                  <a href="tel:+11234567890" className="text-gray-400 hover:text-white transition">
-                    +1 (123) 456-7890
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <FiMapPin className="w-5 h-5 text-purple-400 mt-1" />
-                <div>
-                  <p className="text-white">Location</p>
-                  <p className="text-gray-400">San Francisco, CA</p>
-                </div>
-              </div>
-
+            {/* Legal */}
+            <div className="flex gap-5 text-xs text-white/25">
+              <Link href="/privacy-policy" className="transition hover:text-white/60">Privacy</Link>
+              <Link href="/terms" className="transition hover:text-white/60">Terms</Link>
+              <Link href="/cookies" className="transition hover:text-white/60">Cookies</Link>
             </div>
           </div>
-
-        </div>
-
-        {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-8 border-t border-gray-900">
-
-          <div className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} AADHNIK. All rights reserved.
-          </div>
-
-          <div className="flex items-center gap-4">
-            {[FaTwitter, FaLinkedin, FaGithub, FaDiscord, FaYoutube].map((Icon, i) => (
-              <a
-                key={i}
-                href="#"
-                className="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-800 transition"
-              >
-                <Icon className="w-5 h-5" />
-              </a>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-6 text-sm">
-            <Link href="#" className="text-gray-500 hover:text-white">Privacy Policy</Link>
-            <Link href="#" className="text-gray-500 hover:text-white">Terms of Service</Link>
-            <Link href="#" className="text-gray-500 hover:text-white">Cookies</Link>
-          </div>
-
         </div>
       </div>
-
-      <div className="relative h-1">
-        <div className="absolute inset-0 bg-linear-to-r from-transparent via-purple-500 to-transparent opacity-20"></div>
-      </div>
-
     </footer>
   );
 }

@@ -1,20 +1,29 @@
 
 import Hero from './Hero'
 import Integration from './Integration'
-import ProcessSection from './ProcessSection'
-import { Testimonials } from './Testimonials'
-
-import Solutions from './Solutions'
+import Testimonials from './Testimonials'
+import ServiceWorker from './Bento'
+import WhatWeBuild from './WhatWeBuild'
+import AboutSection from './AboutSection'
+import Banner from '../Banner'
+import OurProducts from './OurProduct'
+import Last from './Last'
 
 
 const Home = () => {
   return (
     <div>
-        <Hero/>
-        <Solutions/>
-        <Integration/>
-        <ProcessSection/>
-        <Testimonials/>
+      <div className="relative">
+        <Hero />
+        <AboutSection />
+      </div>
+      <ServiceWorker />
+      <Banner />
+      <WhatWeBuild />
+      <OurProducts />
+      <Integration />
+      <Testimonials />
+      <Last/>
     </div>
   )
 }
