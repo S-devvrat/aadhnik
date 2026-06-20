@@ -297,7 +297,7 @@ export default function ServicesAboutSection() {
     <section
       ref={sectionRef}
       className="relative overflow-hidden text-white"
-      style={{ background: "#000000", position: "relative", zIndex: 99999 }}
+      style={{ background: "#000000", position: "relative", zIndex: 20 }}
     >
       {/* dot grid */}
       <div

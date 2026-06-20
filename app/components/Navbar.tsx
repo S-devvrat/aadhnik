@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { Menu, X, ChevronDown } from "lucide-react";
 
 export default function Navbar() {
@@ -17,33 +18,66 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Work", href: "/work" },
+    { name: "Blogs", href: "/blogs" },
+    { name: "Contact", href: "/contact" },
+  ];
+
+  const services = [
+    {
+      name: "Web Development",
+      href: "/services/web-development",
+    },
+    {
+      name: "AI Solutions",
+      href: "/services/ai-solutions",
+    },
+    {
+      name: "Automation",
+      href: "/services/automation",
+    },
+    {
+      name: "Brand Systems",
+      href: "/services/brand-systems",
+    },
+  ];
+
   return (
     <header
-      className={`fixed top-0 left-0 z-50 w-full transition-all duration-700 ${
+      className={`fixed top-0 left-0 z-9999 w-full transition-all duration-700 ${
         scrolled
-          ? "bg-black/50 backdrop-blur-xl border-b border-white/10"
+          ? "border-b border-white/10 bg-black/50 backdrop-blur-xl"
           : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex max-w-[1800px] items-center justify-between px-6 py-3 md:px-12">
         {/* Logo */}
-        <div className="flex items-center">
+        <Link href="/" className="flex items-center">
           <img
             src="/aadhnikwhite.png"
             alt="Aadhnik Logo"
             className="h-8 w-auto object-contain"
           />
-        </div>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-8 lg:flex">
-          <button className="text-base font-medium text-white transition hover:text-blue-400">
+          <Link
+            href="/"
+            className="text-base font-medium text-white transition hover:text-blue-400"
+          >
             Home
-          </button>
+          </Link>
 
-          <button className="text-base font-medium text-white transition hover:text-blue-400">
+          <Link
+            href="/about"
+            className="text-base font-medium text-white transition hover:text-blue-400"
+          >
             About
-          </button>
+          </Link>
 
           {/* Services Dropdown */}
           <div className="group relative">
@@ -52,42 +86,39 @@ export default function Navbar() {
               <ChevronDown className="h-4 w-4 transition duration-300 group-hover:rotate-180" />
             </button>
 
-            <div className="invisible absolute left-1/2 top-10 w-60 -translate-x-1/2 rounded-2xl border border-white/10 bg-black/80 p-3 opacity-0 backdrop-blur-xl transition-all duration-300 group-hover:visible group-hover:translate-y-1 group-hover:opacity-100">
-              {[
-                "Web Development",
-                "AI Solutions",
-                "Automation",
-                "Brand Systems",
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="cursor-pointer rounded-xl px-4 py-3 text-sm text-white transition hover:bg-white hover:text-black"
+            <div className="invisible absolute left-1/2 top-10 w-64 -translate-x-1/2 rounded-2xl border border-white/10 bg-black/80 p-3 opacity-0 backdrop-blur-xl transition-all duration-300 group-hover:visible group-hover:translate-y-1 group-hover:opacity-100">
+              {services.map((service) => (
+                <Link
+                  key={service.name}
+                  href={service.href}
+                  className="block rounded-xl px-4 py-3 text-sm text-white transition hover:bg-white hover:text-black"
                 >
-                  {item}
-                </div>
+                  {service.name}
+                </Link>
               ))}
             </div>
           </div>
 
-          <button className="text-base font-medium text-white transition hover:text-blue-400">
-            Work
-          </button>
-
-          <button className="text-base font-medium text-white transition hover:text-blue-400">
-            Blogs
-          </button>
-
-          <button className="text-base font-medium text-white transition hover:text-blue-400">
-            Contact
-          </button>
+          {navLinks.slice(2).map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="text-base font-medium text-white transition hover:text-blue-400"
+            >
+              {link.name}
+            </Link>
+          ))}
         </nav>
 
         {/* Right Side */}
         <div className="flex items-center gap-4">
           {/* CTA Button */}
-          <button className="hidden rounded-full bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-blue-700 lg:block">
+          <Link
+            href="/contact"
+            className="hidden rounded-full bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-blue-700 lg:block"
+          >
             Let's Connect
-          </button>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button
@@ -106,24 +137,74 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <div
         className={`overflow-hidden transition-all duration-500 lg:hidden ${
-          mobileMenu ? "max-h-[500px]" : "max-h-0"
+          mobileMenu ? "max-h-[700px]" : "max-h-0"
         }`}
       >
         <div className="mx-4 mb-4 rounded-2xl border border-white/10 bg-black/80 p-5 backdrop-blur-xl">
-          {["Home", "About", "Services", "Work", "Blogs", "Contact"].map(
-            (item) => (
-              <button
-                key={item}
-                className="block w-full py-3 text-left text-base font-medium text-white"
-              >
-                {item}
-              </button>
-            )
-          )}
+          <Link
+            href="/"
+            onClick={() => setMobileMenu(false)}
+            className="block py-3 text-base font-medium text-white"
+          >
+            Home
+          </Link>
 
-          <button className="mt-4 w-full rounded-full bg-blue-600 px-6 py-3 text-base font-semibold text-white">
+          <Link
+            href="/about"
+            onClick={() => setMobileMenu(false)}
+            className="block py-3 text-base font-medium text-white"
+          >
+            About
+          </Link>
+
+          <div className="border-t border-white/10 pt-2 mt-2">
+            <p className="px-1 py-2 text-xs uppercase tracking-wider text-white/50">
+              Services
+            </p>
+
+            {services.map((service) => (
+              <Link
+                key={service.name}
+                href={service.href}
+                onClick={() => setMobileMenu(false)}
+                className="block py-2 pl-4 text-sm text-white/90"
+              >
+                {service.name}
+              </Link>
+            ))}
+          </div>
+
+          <Link
+            href="/work"
+            onClick={() => setMobileMenu(false)}
+            className="block py-3 text-base font-medium text-white"
+          >
+            Work
+          </Link>
+
+          <Link
+            href="/blogs"
+            onClick={() => setMobileMenu(false)}
+            className="block py-3 text-base font-medium text-white"
+          >
+            Blogs
+          </Link>
+
+          <Link
+            href="/contact"
+            onClick={() => setMobileMenu(false)}
+            className="block py-3 text-base font-medium text-white"
+          >
+            Contact
+          </Link>
+
+          <Link
+            href="/contact"
+            onClick={() => setMobileMenu(false)}
+            className="mt-4 block w-full rounded-full bg-blue-600 px-6 py-3 text-center text-base font-semibold text-white transition hover:bg-blue-700"
+          >
             Let's Connect
-          </button>
+          </Link>
         </div>
       </div>
     </header>
