@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import ServicesAboutSection from "../Home/AboutSection";
 import FounderPage from "./FounderPage";
 import Integration from "../Home/Integration";
+import HeroBanner from "../Hero-Banner";
 
 
 const useInView = (
@@ -105,21 +106,8 @@ const values = [
   },
 ];
 
-const team = [
-  { name: "Arjun Sharma", role: "Founder & CEO", desc: "8+ years engineering commerce platforms at scale. Obsessed with systems that compound.", gradient: "from-blue-600 to-violet-600", letter: "A" },
-  { name: "Meera Patel", role: "Head of Engineering", desc: "Former senior engineer at fintech unicorns. Architects the infrastructure that makes it all run.", gradient: "from-violet-600 to-pink-600", letter: "M" },
-  { name: "Rohan Desai", role: "Lead Designer", desc: "Converts complex user journeys into intuitive, conversion-tuned experiences.", gradient: "from-cyan-500 to-blue-600", letter: "R" },
-  { name: "Nisha Verma", role: "Product Strategist", desc: "Bridges business goals and technical delivery with relentless precision.", gradient: "from-emerald-500 to-cyan-600", letter: "N" },
-];
 
-const milestones = [
-  { year: "2016", event: "Founded in Delhi", detail: "Started as a two-person Shopify studio." },
-  { year: "2018", event: "First Enterprise Client", detail: "Delivered a Magento 2 migration for a 10K-product catalogue." },
-  { year: "2020", event: "eSyncora VMS Launched", detail: "Shipped our first in-house SaaS — now used by 2,400+ companies." },
-  { year: "2022", event: "eSyncora CRM Released", detail: "Built the CRM engine after seeing gaps in the market firsthand." },
-  { year: "2024", event: "AI Pipeline Practice", detail: "Dedicated AI & automation vertical launched for enterprise clients." },
-  { year: "2026", event: "12K+ Projects Shipped", detail: "Operating across e-commerce, SaaS, and mobile verticals globally." },
-];
+
 
 export default function About() {
   const [heroRef, heroIn] = useInView(0.1);
@@ -132,59 +120,14 @@ export default function About() {
   return (
     <div style={{ background: "#07090f", color: "#fff", fontFamily: "system-ui, sans-serif", overflowX: "hidden" }}>
 
-      {/* ── HERO ── */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center px-6 md:px-14 lg:px-20 text-center overflow-hidden" style={{ paddingTop: "100px", paddingBottom: "80px" }}>
-        {/* Grid dot bg */}
-        <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: "radial-gradient(rgba(255,255,255,0.035) 1px,transparent 1px)", backgroundSize: "30px 30px" }} />
-        {/* Blue glow top-right */}
-        <div className="pointer-events-none absolute" style={{ top: "-10%", right: "-5%", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(circle,rgba(37,99,235,0.22) 0%,transparent 65%)" }} />
-        {/* Purple glow bottom-left */}
-        <div className="pointer-events-none absolute" style={{ bottom: "5%", left: "-5%", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(circle,rgba(139,92,246,0.14) 0%,transparent 65%)" }} />
-
-        <div ref={heroRef} className="relative z-10 max-w-4xl mx-auto">
-          {/* Eyebrow */}
-          <div className="inline-flex items-center gap-3 mb-8" style={{ opacity: heroIn ? 1 : 0, transform: heroIn ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.9s cubic-bezier(.16,1,.3,1) 80ms, transform 0.9s cubic-bezier(.16,1,.3,1) 80ms" }}>
-            <div style={{ width: "32px", height: "1px", background: "linear-gradient(90deg,transparent,rgba(59,130,246,.9))" }} />
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#3b82f6", boxShadow: "0 0 10px 3px rgba(59,130,246,.65)" }} />
-              <span style={{ fontSize: "9px", fontWeight: 800, letterSpacing: ".35em", color: "#3b82f6", textTransform: "uppercase" }}>AADHNIK PVT. LTD. · ABOUT</span>
-            </div>
-            <div style={{ width: "32px", height: "1px", background: "linear-gradient(90deg,rgba(59,130,246,.9),transparent)" }} />
-          </div>
-
-          <h1 style={{ fontFamily: "Georgia,'Times New Roman',serif", fontSize: "clamp(42px,7vw,88px)", fontWeight: 800, lineHeight: 1.03, letterSpacing: "-0.035em", margin: "0 0 24px", opacity: heroIn ? 1 : 0, transform: heroIn ? "translateY(0)" : "translateY(32px)", transition: "opacity 1s cubic-bezier(.16,1,.3,1) 180ms, transform 1s cubic-bezier(.16,1,.3,1) 180ms" }}>
-            We don't just<br />
-            <span style={{ background: "linear-gradient(95deg,#60a5fa 0%,#a78bfa 55%,#f0abfc 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>build software</span>
-          </h1>
-
-          <p style={{ fontSize: "clamp(16px,2vw,20px)", lineHeight: 1.8, color: "rgba(255,255,255,0.45)", maxWidth: "560px", margin: "0 auto 48px", opacity: heroIn ? 1 : 0, transform: heroIn ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.9s cubic-bezier(.16,1,.3,1) 340ms, transform 0.9s cubic-bezier(.16,1,.3,1) 340ms" }}>
-            We engineer compounding systems — Shopify & Magento stores, mobile apps, CRMs, and AI pipelines — that perform, scale, and keep delivering long after launch.
-          </p>
-
-          {/* Stats bar */}
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16" style={{ opacity: heroIn ? 1 : 0, transform: heroIn ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.9s cubic-bezier(.16,1,.3,1) 480ms, transform 0.9s cubic-bezier(.16,1,.3,1) 480ms" }}>
-            {[
-              { val: 5, suf: "+", label: "Years in Domain" },
-              { val: 12, suf: "K+", label: "Projects Shipped" },
-              { val: 87, suf: "%", label: "Returned Clients" },
-              { val: 6, suf: "+", label: "Awards" },
-            ].map((s) => (
-              <div key={s.label} className="text-center">
-                <div style={{ fontFamily: "Georgia,serif", fontSize: "clamp(36px,4vw,52px)", fontWeight: 800, letterSpacing: "-2px", color: "#fff", lineHeight: 1 }}>
-                  <Counter target={s.val} suffix={s.suf} />
-                </div>
-                <div style={{ fontSize: "9px", fontWeight: 700, letterSpacing: ".2em", color: "rgba(255,255,255,0.3)", textTransform: "uppercase", marginTop: "6px" }}>{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Scroll cue */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px", opacity: 0.35 }}>
-          <div style={{ width: "1px", height: "40px", background: "linear-gradient(180deg,transparent,rgba(59,130,246,.8))" }} />
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5l4 4 4-4" stroke="#3b82f6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        </div>
-      </section>
+      <HeroBanner
+  title="About Us"
+  backgroundImage="/people.png"
+  breadcrumbs={[
+    { label: "Home", href: "/" },
+    { label: "About" },
+  ]}
+/>
 
       {/* ── MISSION ── */}
       <section className="relative overflow-hidden" style={{ background: "#000", padding: "100px 0" }}>

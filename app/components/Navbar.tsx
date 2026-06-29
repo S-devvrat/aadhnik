@@ -22,7 +22,6 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Work", href: "/work" },
-    { name: "Blogs", href: "/blogs" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -79,25 +78,12 @@ export default function Navbar() {
             About
           </Link>
 
-          {/* Services Dropdown */}
-          <div className="group relative">
-            <button className="flex items-center gap-1 text-base font-medium text-white transition hover:text-blue-400">
-              Services
-              <ChevronDown className="h-4 w-4 transition duration-300 group-hover:rotate-180" />
-            </button>
-
-            <div className="invisible absolute left-1/2 top-10 w-64 -translate-x-1/2 rounded-2xl border border-white/10 bg-black/80 p-3 opacity-0 backdrop-blur-xl transition-all duration-300 group-hover:visible group-hover:translate-y-1 group-hover:opacity-100">
-              {services.map((service) => (
-                <Link
-                  key={service.name}
-                  href={service.href}
-                  className="block rounded-xl px-4 py-3 text-sm text-white transition hover:bg-white hover:text-black"
-                >
-                  {service.name}
-                </Link>
-              ))}
-            </div>
-          </div>
+          <Link
+            href="/services"
+            className="text-base font-medium text-white transition hover:text-blue-400"
+          >
+            Services
+          </Link>
 
           {navLinks.slice(2).map((link) => (
             <Link
@@ -182,13 +168,7 @@ export default function Navbar() {
             Work
           </Link>
 
-          <Link
-            href="/blogs"
-            onClick={() => setMobileMenu(false)}
-            className="block py-3 text-base font-medium text-white"
-          >
-            Blogs
-          </Link>
+          
 
           <Link
             href="/contact"
