@@ -25,24 +25,7 @@ export default function Navbar() {
     { name: "Contact", href: "/contact" },
   ];
 
-  const services = [
-    {
-      name: "Web Development",
-      href: "/services/web-development",
-    },
-    {
-      name: "AI Solutions",
-      href: "/services/ai-solutions",
-    },
-    {
-      name: "Automation",
-      href: "/services/automation",
-    },
-    {
-      name: "Brand Systems",
-      href: "/services/brand-systems",
-    },
-  ];
+  
 
   return (
     <header
@@ -143,22 +126,16 @@ export default function Navbar() {
             About
           </Link>
 
-          <div className="border-t border-white/10 pt-2 mt-2">
-            <p className="px-1 py-2 text-xs uppercase tracking-wider text-white/50">
-              Services
-            </p>
 
-            {services.map((service) => (
-              <Link
-                key={service.name}
-                href={service.href}
-                onClick={() => setMobileMenu(false)}
-                className="block py-2 pl-4 text-sm text-white/90"
-              >
-                {service.name}
-              </Link>
-            ))}
-          </div>
+          <Link
+            href="/services"
+            onClick={() => setMobileMenu(false)}
+            className="block py-3 text-base font-medium text-white"
+          >
+            Services
+          </Link>
+
+          
 
           <Link
             href="/work"
